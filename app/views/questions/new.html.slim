@@ -1,0 +1,8 @@
+h1 質問する
+
+.nav.justify-content-end
+  = link_to '一覧',questions_path,class:'nav-link'
+
+= render partial: "form",locals: {object:@question}
+
+

@@ -1,0 +1,23 @@
+h1 ユーザ一覧(管理者)
+
+.mb-3
+table.table.table-hover 
+  thead.thead-default 
+    tr 
+      th= User.human_attribute_name(:name)
+      th= User.human_attribute_name(:email)
+      th= User.human_attribute_name(:admin)
+      th= User.human_attribute_name(:created_at)
+      th= User.human_attribute_name(:updated_at)
+      th
+  tbody
+    - @users.each do |user|
+      tr
+        td= user.name
+        td= user.email
+        td= user.admin? ? "あり" : "なし"
+        td= user.created_at
+        td= user.updated_at
+        td=link_to "削除","/admin/users/#{user.id}",method: :delete,data:{confirm:"ユーザー「#{user.name}」を削除します"},class:'btn btn-danger mr-3'
+        
+          

@@ -1,0 +1,77 @@
+doctype html
+html
+  head
+    title
+      | Q&A App 
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light.mb-3
+      .navbar-brand 
+        =link_to "Q&A App",questions_path 
+
+      ul.navbar-nav.ml-auto        
+        - if current_user
+          li.nav-item=link_to "ユーザ一覧",users_path,class:'nav-link'
+          li.nav-item=link_to "質問一覧",questions_path,class:'nav-link'
+          li.nav-item=link_to 'ログアウト',logout_path,method: :delete,class:'nav-link'
+          li.nav-item=link_to "#{current_user.name}","#",class:'nav-link'
+        - else 
+          li.nav-item=link_to 'ログイン',login_path,class:'nav-link'
+          li.nav-item=link_to '新規登録',new_user_path,class:'nav-link'
+          li.nav-item=link_to '管理者',admin_login_path,class:'nav-link'
+    .container.mb-3
+      -if flash.notice.present?
+        .alert.alert-success=flash.notice
+      -elsif flash[:danger]
+        .alert.alert-danger= flash[:danger] 
+      = yield
+
+-if current_user&.admin?
+  footer.bg-light.text-center.text-lg-start
+    .container.p-4
+      .row
+        .col-lg-6.col-md-12.mb-4.mb-md-0
+          h5.text-uppercase
+            | Administrator Menu
+          p
+            |  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est atque cumque eum delectus sint! 
+        .col-lg-3.col-md-6.mb-4.mb-md-0
+          h5.text-uppercase
+            | Users
+          ul.list-unstyled.mb-0
+            li
+              a.text-dark[href="/admin/users"]
+                | ユーザ一覧
+            li
+              a.text-dark[href="#!"]
+                | Link 2
+            li
+              a.text-dark[href="#!"]
+                | Link 3
+            li
+              a.text-dark[href="#!"]
+                | Link 4
+        .col-lg-3.col-md-6.mb-4.mb-md-0
+          h5.text-uppercase
+            | Questions
+          ul.list-unstyled.mb-0
+            li
+              a.text-dark[href="/admin/questions"]
+                | 質問一覧
+            li
+              a.text-dark[href="#!"]
+                | Link 2
+            li
+              a.text-dark[href="#!"]
+                | Link 3
+            li
+              a.text-dark[href="#!"]
+                | Link 4
+        
+    .text-center.p-3[style="background-color: rgba(0, 0, 0, 0.2);"]
+      |  © 2020 Copyright: 
+      a.text-dark[href="https://mdbootstrap.com/"]
+        | MDBootstrap.com
