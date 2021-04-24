@@ -1,0 +1,27 @@
+h1 タスクの詳細
+
+.nav.justfy-content-end
+  = link_to '一覧' ,  questions_path, class:'nav-link'
+table.table.table-hover 
+  tbody
+    tr 
+      th.item=Question.human_attribute_name(:id)
+      td=@question.id
+    tr
+      th=Question.human_attribute_name(:title)
+      td=@question.title
+    tr
+      th=Question.human_attribute_name(:content)
+      td=simple_format(h(@question.content),{},santize:false,wrapper_tag:"div")
+    tr
+      / th=Task.human_attribute_name(:image)
+      / td=image_tag @task.image if @task.image.attached?
+    
+    tr
+      th=Question.human_attribute_name(:created_at)
+      td=@question.created_at
+    tr
+      th=Question.human_attribute_name(:updated_at)
+      td=@question.updated_at
+= link_to '編集',"/questions/#{@question.id}/edit",class:'btn btn-primary mr-3'
+= link_to '削除',"/questions/#{@question.id}",method: :delete ,data:{confirm: "質問「#{@question.title}」を削除します。よろしいですか？"},class: 'btn btn-danger'
