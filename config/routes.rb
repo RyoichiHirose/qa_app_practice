@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :answers,only:[:create]
+
   namespace :admin do
     resources :questions,only:[:index,:destroy]
   end
+  
   namespace :admin do
     get "/login",to:"sessions#new"
     post "/login",to:"sessions#create"
