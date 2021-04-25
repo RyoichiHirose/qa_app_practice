@@ -1,8 +1,30 @@
 class QuestionsController < ApplicationController
   before_action:login_required
-  before_action:correct_user,only:[:destroy,:edit,:update]
+  before_action:correct_user,only:[:destroy,:edit,:update,:change_solved,:change_unsolved]
+  
+  def solved
+    @questions=Question.where(solved:true)
+  end
+
+  def unsolved
+    @questions=Question.where(solved:false)
+  end
+
+  def change_solved
+    @question.update(solved: true)
+    flash[:notice]="質問「#{@question.title}を解決済みにしました。」"
+    redirect_to questions_path
+  end
+  
+  def change_unsolved
+    @question.update(solved: false)
+    redirect_to questions_path
+  end
+
   def index
-    @questions=Question.all
+    @q=Question.ransack(params[:q])
+    @questions=@q.result(distinct: true).page(params[:page])
+
   end
 
   def show
