@@ -20,7 +20,7 @@ table.table.table-hover
       tr
         td= link_to question.title,"questions/#{question.id}" 
         td= question.solved? ? "解決" : "未解決"
-        td= question.user.name
+        td= question.user&.name
         td= question.created_at
 
         td

@@ -44,6 +44,7 @@ class QuestionsController < ApplicationController
     @question=current_user.questions.new(question_params)
     if @question.save
       redirect_to @question,notice:"質問「#{@question.title}」を投稿しました。"
+      QuestionMailer.send_mail_users(current_user,@question)
     else
       render :new
     end
@@ -53,6 +54,7 @@ class QuestionsController < ApplicationController
 
     if @question.update(question_params)
       redirect_to @question,notice:"質問「#{@question.title}」を更新しました。"
+
     else
       render :edit
     end
