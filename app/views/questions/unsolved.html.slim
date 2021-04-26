@@ -4,21 +4,9 @@
 
 h1 質問一覧
 
-= search_form_for @q,class:'mb-5' do |f|
-  .form-group.row 
-    =f.label :title_cont,'名称',class:'col-sm-2 col-form-label'
-    .col-sm-10
-      =f.search_field :title_cont,class:'form-control'
-  .form-group
-    =f.submit class:'btn btn-outline-primary'
-
-
 = link_to '質問する',new_question_path,class:'btn btn-primary'
 
 .mb-3
-  =paginate @questions
-  =page_entries_info @questions
-
 table.table.table-hover 
   thead.thead-default 
     tr 
@@ -32,7 +20,7 @@ table.table.table-hover
       tr
         td= link_to question.title,"questions/#{question.id}" 
         td= question.solved? ? "解決" : "未解決"
-        td= question.user.name
+        td= question.user&.name
         td= question.created_at
 
         td
@@ -43,4 +31,3 @@ table.table.table-hover
               =link_to "未解決にする","/questions/#{question.id}/unsolved",data:{confirm:"質問「#{question.title}」を未解決にします"},class:'btn btn-danger mr-3'
             - else
               =link_to "解決済みにする","/questions/#{question.id}/solved",data:{confirm:"質問「#{question.title}」を解決済みにします"},class:'btn btn-primary mr-3'
-              

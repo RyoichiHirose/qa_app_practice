@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   resources :answers,only:[:create]
+  
+  get "/questions/:id/solved"=>"questions#change_solved"
+  get "/questions/:id/unsolved"=>"questions#change_unsolved" 
+  
+  get "/questions/solved" =>"questions#solved"
+  get "/questions/unsolved"=>"questions#unsolved"
 
   namespace :admin do
     resources :questions,only:[:index,:destroy]

@@ -1,11 +1,12 @@
 h1 ユーザ一覧
 
 .mb-3
-table.table.table-hover 
-  thead.thead-default 
+table.table.table-hover
+  thead.thead-default
     tr 
       th= User.human_attribute_name(:name)
       th= User.human_attribute_name(:email)
+      th= "アバター画像"
 
       th= User.human_attribute_name(:created_at)
       th= User.human_attribute_name(:updated_at)
@@ -14,6 +15,7 @@ table.table.table-hover
       tr
         td= user.name
         td= user.email
+        td= image_tag user.image if user.image.attached?
 
         td= user.created_at
         td= user.updated_at
